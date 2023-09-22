@@ -1,4 +1,3 @@
-resourceClass: docker_linux_amd64/small+
 parallelism: 10
 env:
   CI: 'true'
