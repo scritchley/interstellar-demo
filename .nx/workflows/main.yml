@@ -11,4 +11,4 @@ steps:
 
   - name: Nx Run Many
     script: |
-      npx nx run-many -t lint test build e2e --parallel 1 --configuration=production --dte
+      npx nx run-many -t lint test build --parallel 3 --configuration=production --dte
