@@ -1,7 +1,6 @@
 env:
   CI: 'true'
   NODE_OPTIONS: '--max_old_space_size=4096'
-  NX_CLOUD_DISTRIBUTED_EXECUTION: true
 steps:
   - name: Git Checkout
     uses: nrwl/nx-cloud-workflows/v1.0/workflow-steps/checkout/main.yaml
@@ -16,4 +15,4 @@ steps:
 
   - name: Nx Run Many
     script: |
-      npx nx run-many -t lint test build e2e --parallel 1 --configuration=production
+      npx nx run-many -t lint test build e2e --parallel 1 --configuration=production --dte
