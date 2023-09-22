@@ -1,14 +1,11 @@
-parallelism: 5
+resourceClass: docker_linux_amd64/small
+parallelism: 10
 env:
   CI: 'true'
   NODE_OPTIONS: '--max_old_space_size=4096'
 steps:
-  - name: Git Clone
-    script: |
-      git init .
-      git remote add origin $GIT_REPOSITORY_URL
-      git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +{{nxCommitSha}}:{{nxCommitRef}}
-      git checkout --progress --force -B {{nxBranch}} {{nxCommitRef}}
+  - name: Git Checkout
+    uses: nrwl/nx-cloud-workflows/v1.0/workflow-steps/checkout/main.yaml
 
   - name: NPM Install
     script: |
