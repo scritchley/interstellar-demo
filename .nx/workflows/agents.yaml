@@ -1,3 +1,4 @@
+resourceClassName: docker_linux_amd64/small
 parallelism: 5
 env:
   CI: 'true'
