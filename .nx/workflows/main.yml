@@ -5,10 +5,6 @@ steps:
   - name: Git Checkout
     uses: nrwl/nx-cloud-workflows/v1.0/workflow-steps/checkout/main.yaml
 
-  - name: Start CI Run
-    script: |
-      npx nx-cloud start-ci-run
-
   - name: NPM Install
     script: |
       npm ci
