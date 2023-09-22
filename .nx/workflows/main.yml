@@ -2,17 +2,17 @@ env:
   CI: 'true'
   NODE_OPTIONS: '--max_old_space_size=4096'
 steps:
-  - name: Git Clone
+  - name: Git Checkout
+    uses: nrwl/nx-cloud-workflows/v1.0/workflow-steps/checkout/main.yaml
+
+  - name: Start CI Run
     script: |
-      git init .
-      git remote add origin $GIT_REPOSITORY_URL
-      git fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +{{nxCommitSha}}:{{nxCommitRef}}
-      git checkout --progress --force -B {{nxBranch}} {{nxCommitRef}}
+      npx nx-cloud start-ci-run
 
   - name: NPM Install
     script: |
       npm ci
 
-  - name: Nx Affected
+  - name: Nx Run Many
     script: |
-      npx nx affected -t lint test build e2e --parallel 1 --configuration=production
+      npx nx run-many -t lint test build e2e --parallel 1 --configuration=production
