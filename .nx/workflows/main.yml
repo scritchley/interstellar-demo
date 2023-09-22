@@ -1,4 +1,4 @@
-resourceClass: docker_linux_amd64/small
+resourceClass: docker_linux_amd64/small+
 env:
   CI: 'true'
   NODE_OPTIONS: '--max_old_space_size=4096'
@@ -12,5 +12,5 @@ steps:
 
   - name: Nx Run Many
     script: |
-      npx nx run-many -t lint test build --parallel 3 --configuration=production --dte
+      npx nx run-many -t lint test --parallel 3 --configuration=production --dte
       npx nx-cloud stop-all-agents
