@@ -1,5 +1,4 @@
-name: Run DTE Agents
-parallelism: 5
+name: Lint, Test, Build & E2E
 env:
   CI: 'true'
   NODE_OPTIONS: '--max_old_space_size=4096'
@@ -15,6 +14,6 @@ steps:
     script: |
       npm ci
 
-  - name: Run Agent
+  - name: Nx Affected
     script: |
-      npx nx-cloud start-agent
+      npx nx affected -t lint test build e2e --parallel 1 --configuration=production
