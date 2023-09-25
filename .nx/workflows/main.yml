@@ -4,6 +4,8 @@ env:
   NODE_OPTIONS: '--max_old_space_size=4096'
 steps:
   - name: Git Checkout
+    env:
+      GIT_CHECKOUT_DEPTH: 100
     uses: nrwl/nx-cloud-workflows/v1.0/workflow-steps/checkout/main.yaml
 
   - name: NPM Install
