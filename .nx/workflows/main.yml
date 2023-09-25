@@ -16,10 +16,8 @@ steps:
 
   - name: Nx Run Many
     script: |
-      export NX_BASE=$(git merge-base main HEAD)
-      echo $NX_BASE
-      npx nx affected:lint --base=$(NX_BASE) --dte &
-      npx nx affected:test --base=$(NX_BASE) --dte &
-      npx nx affected:build --base=$(NX_BASE) --dte &
+      npx nx affected:lint --dte &
+      npx nx affected:test --dte &
+      npx nx affected:build --dte &
       wait
       npx nx-cloud stop-all-agents
