@@ -8,7 +8,7 @@ steps:
       git init .
       git remote add origin $GIT_REPOSITORY_URL
       git fetch --prune --progress --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
-      git checkout --progress --force -B {{nxBranch}} {{nxCommitRef}}
+      git checkout --progress --force -B {{nxBranch}} refs/remotes/origin/{{nxCommitRef}}
 
   - name: NPM Install
     script: |
