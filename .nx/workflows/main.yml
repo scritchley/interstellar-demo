@@ -1,4 +1,10 @@
-resourceClass: docker_linux_amd64/small+
+name: Lint, Test & Build
+resourceClass: docker_linux_amd64/small
+on:
+- events:
+  - PULL_REQUEST
+  branches:
+  - main
 env:
   CI: 'true'
   NODE_OPTIONS: '--max_old_space_size=4096'
