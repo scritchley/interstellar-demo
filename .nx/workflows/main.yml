@@ -1,3 +1,4 @@
+resourceClass: docker_linux_amd64/small
 name: Lint, Test & Build
 resourceClass: docker_linux_amd64/small
 on:
@@ -10,7 +11,11 @@ env:
   NODE_OPTIONS: '--max_old_space_size=4096'
 steps:
   - name: Git Checkout
-    uses: nrwl/nx-cloud-workflows/v1.0/workflow-steps/checkout/main.yaml
+    script: |
+      git init .
+      git remote add origin $GIT_REPOSITORY_URL
+      git fetch --prune --progress --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/*
+      git checkout --progress --force -B {{nxBranch}} refs/remotes/origin/{{nxCommitRef}}
 
   - name: NPM Install
     script: |
@@ -18,5 +23,13 @@ steps:
 
   - name: Nx Run Many
     script: |
-      npx nx run-many -t lint test --parallel 3 --configuration=production --dte
+      export NX_BASE=$(git merge-base refs/remotes/origin/main HEAD)
+      echo $NX_BASE
+      npx nx affected:lint --base=$NX_BASE --dte &
+      P1=$!
+      npx nx affected:test --base=$NX_BASE --dte &
+      P2=$!
+      npx nx affected:build --base=$NX_BASE --dte &
+      P3=$!
+      wait $P1 $P2 $P3
       npx nx-cloud stop-all-agents
